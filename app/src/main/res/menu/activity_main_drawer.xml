@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_characters"
+            android:icon="@drawable/ic_characters"
+            android:title="@string/menu_characters" />
+        <item
+            android:id="@+id/nav_locations"
+            android:icon="@drawable/ic_location"
+            android:title="@string/menu_locations"/>
+        <item
+            android:id="@+id/nav_episodes"
+            android:icon="@drawable/ic_episodes"
+            android:title="@string/menu_episodes"/>
+        <item
+            android:id="@+id/nav_favorites"
+            android:icon="@drawable/ic_star"
+            android:title="@string/menu_favorites"/>
+    </group>
+</menu>
