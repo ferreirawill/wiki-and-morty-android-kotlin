@@ -1,6 +1,7 @@
 package com.ferreirawilliam.wikiandmorty.view.activities
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,6 +12,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.ferreirawilliam.wikiandmorty.R
+import com.ferreirawilliam.wikiandmorty.model.GetCharacters
+import com.ferreirawilliam.wikiandmorty.services.listeners.APIListener
+import com.ferreirawilliam.wikiandmorty.services.repository.remote.CharacterRepository
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,11 +26,9 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
-
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -37,9 +39,31 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        justTesting()
+    }
+
+
+    //TODO: NEED REMOVE THIS
+    fun justTesting(){
+        val charRepo = CharacterRepository()
+
+        charRepo.getAllCharacters(object : APIListener{
+            override fun onSuccess(model: GetCharacters) {
+                Log.d("API REQUEST", "onSuccess: $model")
+            }
+
+            override fun onFailure(string: String) {
+                Log.d("API REQUEST", "onFailure: $string")
+            }
+
+        })
+
     }
 }
