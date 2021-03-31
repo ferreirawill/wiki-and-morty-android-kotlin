@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.ferreirawilliam.wikiandmorty.R
 import com.ferreirawilliam.wikiandmorty.model.GetCharacters
-import com.ferreirawilliam.wikiandmorty.services.listeners.APIListener
-import com.ferreirawilliam.wikiandmorty.services.repository.remote.CharacterRepository
+import com.ferreirawilliam.wikiandmorty.services.listeners.CharacterListener
+import com.ferreirawilliam.wikiandmorty.services.repository.CharacterRepository
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,24 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        justTesting()
-    }
-
-
-    //TODO: NEED REMOVE THIS
-    fun justTesting(){
-        val charRepo = CharacterRepository()
-
-        charRepo.getAllCharacters(object : APIListener{
-            override fun onSuccess(model: GetCharacters) {
-                Log.d("API REQUEST", "onSuccess: $model")
-            }
-
-            override fun onFailure(string: String) {
-                Log.d("API REQUEST", "onFailure: $string")
-            }
-
-        })
 
     }
+
 }

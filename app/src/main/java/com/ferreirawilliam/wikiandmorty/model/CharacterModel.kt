@@ -2,7 +2,7 @@ package com.ferreirawilliam.wikiandmorty.model
 
 import com.google.gson.annotations.SerializedName
 
-data class CharacterResult(
+data class CharacterModel(
     @SerializedName("id")
     var id:Int,
     @SerializedName("name")

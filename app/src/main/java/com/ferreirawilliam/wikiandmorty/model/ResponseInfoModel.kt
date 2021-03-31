@@ -2,7 +2,7 @@ package com.ferreirawilliam.wikiandmorty.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseInfo(
+data class ResponseInfoModel(
     @SerializedName("count")
     var count:Int,
     @SerializedName("pages")

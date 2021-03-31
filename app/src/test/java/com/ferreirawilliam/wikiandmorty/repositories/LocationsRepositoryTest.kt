@@ -1,7 +1,5 @@
 package com.ferreirawilliam.wikiandmorty.repositories
 
-
-
 import com.ferreirawilliam.wikiandmorty.model.GetCharacters
 import com.ferreirawilliam.wikiandmorty.services.listeners.CharacterListener
 import com.ferreirawilliam.wikiandmorty.services.repository.remote.mock.CharacterRepositoryMock
@@ -14,34 +12,30 @@ import org.junit.Before
 import org.junit.Test
 import java.util.concurrent.TimeUnit
 
-
-class CharacterRepositoryTest{
-
-    private lateinit var mCharacterRepository:CharacterRepositoryMock
+class LocationsRepositoryTest {
+    private lateinit var mLocationRepository: CharacterRepositoryMock
     private val server = MockWebServer()
-
-
 
     @Before
     fun setUpTests(){
-        val allCharactersResponse = MockResponseReader.readFile(MockResponseReader.Response.ALL_CHARACTERS)
-        val multipleCharactersResponse = MockResponseReader.readFile(MockResponseReader.Response.MULTIPLE_CHARACTERS)
-        val singleCharactersResponse = MockResponseReader.readFile(MockResponseReader.Response.SINGLE_CHARACTERS)
+        val allLocationsResponse = MockResponseReader.readFile(MockResponseReader.Response.ALL_LOCATIONS)
+        val multipleLocationsResponse = MockResponseReader.readFile(MockResponseReader.Response.MULTIPLE_LOCATIONS)
+        val singleLocationsResponse = MockResponseReader.readFile(MockResponseReader.Response.SINGLE_LOCATION)
         server.start()
-        mCharacterRepository = CharacterRepositoryMock(serverUrl = server.url(""))
+        mLocationRepository = CharacterRepositoryMock(serverUrl = server.url(""))
 
         val dispatcher: Dispatcher = object : Dispatcher() {
             override fun dispatch(request: RecordedRequest): MockResponse {
                 when (request.path) {
-                    "/character/" -> return MockResponse().setBody(allCharactersResponse)
+                    "/location/" -> return MockResponse().setBody(allLocationsResponse)
                             .setResponseCode(200)
                             .addHeader("Content-Type", "application/json; charset=utf-8")
                             .addHeader("Cache-Control", "no-cache").throttleBody(1,period = 2,unit = TimeUnit.SECONDS)
-                    "/character/[1,2,3]" -> return MockResponse().setBody(multipleCharactersResponse)
+                    "/location/[1,2,3]" -> return MockResponse().setBody(multipleLocationsResponse)
                             .setResponseCode(200)
                             .addHeader("Content-Type", "application/json; charset=utf-8")
                             .addHeader("Cache-Control", "no-cache").throttleBody(1,period = 2,unit = TimeUnit.SECONDS)
-                    "/character/1" -> return MockResponse().setBody(singleCharactersResponse)
+                    "/location/1" -> return MockResponse().setBody(singleLocationsResponse)
                             .setResponseCode(200)
                             .addHeader("Content-Type", "application/json; charset=utf-8")
                             .addHeader("Cache-Control", "no-cache").throttleBody(1,period = 2,unit = TimeUnit.SECONDS)
@@ -57,18 +51,8 @@ class CharacterRepositoryTest{
     fun testGetAllCharacters(){
 
 
-        mCharacterRepository.getAllCharacters(object :CharacterListener{
-            override fun onSuccess(model: GetCharacters) {
-                assert(model.infoModel != null)
-            }
 
-            override fun onFailure(string: String) {
-                assert(string.isNotEmpty())
-            }
-
-        })
-
-        var request = server.takeRequest(5,TimeUnit.SECONDS)
+        var request = server.takeRequest(5, TimeUnit.SECONDS)
 
 
         assert(request?.path.equals("/character/"))
@@ -78,19 +62,8 @@ class CharacterRepositoryTest{
     @Test
     fun testGetMultipleCharacters(){
 
-        val characterList = arrayListOf(1,2,3)
-        mCharacterRepository.getMultipleCharacters(characterList,object :CharacterListener{
-            override fun onSuccess(model: GetCharacters) {
-                assert(model.results.isNotEmpty())
-            }
 
-            override fun onFailure(string: String) {
-                assert(string.isNotEmpty())
-            }
-
-        })
-
-        var request = server.takeRequest(5,TimeUnit.SECONDS)
+        var request = server.takeRequest(5, TimeUnit.SECONDS)
 
         assert(request?.path != null)
         assert(request?.method == "GET")
@@ -101,18 +74,9 @@ class CharacterRepositoryTest{
 
 
         val characterId = 1
-        mCharacterRepository.getSingleCharacters(characterId,object :CharacterListener{
-            override fun onSuccess(model: GetCharacters) {
-                assert(model.results.isNotEmpty())
-            }
 
-            override fun onFailure(string: String) {
-                assert(string.isNotEmpty())
-            }
 
-        })
-
-        var request = server.takeRequest(5,TimeUnit.SECONDS)
+        var request = server.takeRequest(5, TimeUnit.SECONDS)
 
 
         assert(request?.path.equals("/character/$characterId"))
@@ -124,6 +88,7 @@ class CharacterRepositoryTest{
     fun closeAll(){
         server.shutdown();
     }
+
 
 
 }

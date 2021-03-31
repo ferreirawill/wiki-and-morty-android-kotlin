@@ -28,6 +28,5 @@ class RetrofitClient private constructor(){
             return getRetrofitInstance().create(serviceClass)
         }
 
-
     }
 }

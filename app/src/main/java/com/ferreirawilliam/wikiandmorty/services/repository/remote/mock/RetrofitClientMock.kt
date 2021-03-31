@@ -1,5 +1,6 @@
 package com.ferreirawilliam.wikiandmorty.services.repository.remote.mock
 
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,9 +13,7 @@ class RetrofitClientMock private constructor(){
         private val baseUrl = SERVER_DATA.URL
 
         private fun getRetrofitInstance(): Retrofit {
-            val httpClient = OkHttpClient.Builder().connectTimeout(2, TimeUnit.SECONDS)
-                    .readTimeout(2, TimeUnit.SECONDS)
-                    .writeTimeout(2, TimeUnit.SECONDS)
+            val httpClient = OkHttpClient.Builder()
             if (!Companion::retrofit.isInitialized){
                 retrofit = Retrofit.Builder().baseUrl(baseUrl)
                         .client(httpClient.build())
@@ -29,7 +28,6 @@ class RetrofitClientMock private constructor(){
     }
 
     object SERVER_DATA{
-        const val URL = "https://mock_rick_and_morty/"
-        const val PORT = 5000
+        lateinit var URL:HttpUrl
     }
 }

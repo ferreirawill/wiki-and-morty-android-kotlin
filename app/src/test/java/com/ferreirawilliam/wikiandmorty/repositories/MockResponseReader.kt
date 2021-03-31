@@ -14,6 +14,14 @@ class MockResponseReader private constructor(){
     }
 
     object Response{
-        const val CHARACTERS= "characters.json"
+        const val ALL_CHARACTERS= "characters.json"
+        const val MULTIPLE_CHARACTERS= "multipleCharacters.json"
+        const val SINGLE_CHARACTERS= "singleCharacters.json"
+        const val ALL_EPISODES= "episodes.json"
+        const val MULTIPLE_EPISODES= "multipleEpisodes.json"
+        const val SINGLE_EPISODE= "singleEpisode.json"
+        const val ALL_LOCATIONS= "locations.json"
+        const val MULTIPLE_LOCATIONS= "multipleLocations.json"
+        const val SINGLE_LOCATION= "singleLocation.json"
     }
 }
