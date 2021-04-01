@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ferreirawilliam.wikiandmorty.model.CharacterModel
 import com.ferreirawilliam.wikiandmorty.model.GetCharacters
+import com.ferreirawilliam.wikiandmorty.model.ResponseInfoModel
 import com.ferreirawilliam.wikiandmorty.services.listeners.CharacterListener
 import com.ferreirawilliam.wikiandmorty.services.repository.CharacterRepository
 
@@ -19,10 +20,12 @@ class CharactersViewModel : ViewModel() {
     private val _characterList = MutableLiveData<List<CharacterModel>>()
     val characterList:LiveData<List<CharacterModel>> = _characterList
 
+    private lateinit var _responseInfo: ResponseInfoModel
 
     fun loadAllCharacters(){
-        mCharacterRepository.getAllCharacters(object : CharacterListener {
+        mCharacterRepository.getAll(object : CharacterListener {
             override fun onSuccess(model: GetCharacters) {
+                 _responseInfo = model.infoModel!!
                 _characterList.value = model.results
             }
 
@@ -33,9 +36,8 @@ class CharactersViewModel : ViewModel() {
         })
     }
 
-
     fun loadSingleCharacter(id: Int){
-        mCharacterRepository.getSingleCharacters(id,object :CharacterListener{
+        mCharacterRepository.getSingle(id,object :CharacterListener{
             override fun onSuccess(model: GetCharacters) {
                 Log.d("API REQUEST", "onSuccess info: ${model.infoModel}")
                 Log.d("API REQUEST", "onSuccess result: ${model.results[0]}")
@@ -46,6 +48,21 @@ class CharactersViewModel : ViewModel() {
                 Log.d("API REQUEST", "onSuccess result: $string")
             }
 
+        })
+    }
+
+    fun loadNewPage(){
+
+        mCharacterRepository.getNewPage(_responseInfo.nextPage,object : CharacterListener{
+            override fun onSuccess(model: GetCharacters) {
+                _responseInfo = model.infoModel!!
+
+                _characterList.value = characterList.value?.plus(model.results) ?: characterList.value
+            }
+
+            override fun onFailure(string: String) {
+                Log.d("API REQUEST", "onFailure: $string")
+            }
         })
     }
 

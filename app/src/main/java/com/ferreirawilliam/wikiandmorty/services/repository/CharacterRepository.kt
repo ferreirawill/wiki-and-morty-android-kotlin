@@ -13,7 +13,7 @@ import retrofit2.Response
 class CharacterRepository {
     private val retrofitClient = RetrofitClient.createService(CharacterService::class.java)
 
-    fun getAllCharacters(listener:CharacterListener){
+    fun getAll(listener:CharacterListener){
         val call:Call<GetCharacters> =  retrofitClient.getAllCharacters()
 
         Log.d("API REQUEST", "CHAMANDO API")
@@ -33,7 +33,7 @@ class CharacterRepository {
         })
     }
 
-    fun getMultipleCharacters(characterList: List<Int>,listener: CharacterListener) {
+    fun getMultiple(characterList: List<Int>,listener: CharacterListener) {
 
         val call:Call<List<CharacterModel>> =  retrofitClient.getMultipleCharacters(characterList)
 
@@ -53,7 +53,7 @@ class CharacterRepository {
 
     }
 
-    fun getSingleCharacters(characterId:Int,listener: CharacterListener) {
+    fun getSingle(characterId:Int,listener: CharacterListener) {
         val call:Call<CharacterModel> =  retrofitClient.getSingleCharacters(characterId)
 
         Log.d("API REQUEST", "CHAMANDO API")
@@ -69,6 +69,33 @@ class CharacterRepository {
             }
 
         })
+
+    }
+
+    fun getNewPage(page:String,listener: CharacterListener){
+        if (page.isEmpty()) return
+        var nextPage = page.split("/?page=").last()
+
+        val call:Call<GetCharacters> =  retrofitClient.getAllCharacters(nextPage)
+
+        Log.d("API REQUEST", "CHAMANDO API")
+
+        call.enqueue(object :Callback<GetCharacters>{
+            override fun onFailure(call: Call<GetCharacters>, t: Throwable) {
+                Log.d("API REQUEST", "onFailure: ${t.message.toString()}")
+                listener.onFailure(t.message.toString())
+            }
+
+            override fun onResponse(call: Call<GetCharacters>, response: Response<GetCharacters>) {
+                Log.d("API REQUEST", "SUCESSO NA API")
+                response.body()?.let { listener.onSuccess(it) }
+
+            }
+
+        })
+    }
+
+    fun getAvatar(id:Int){
 
     }
 

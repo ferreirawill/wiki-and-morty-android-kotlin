@@ -28,3 +28,10 @@ data class CharacterModel(
     @SerializedName("created")
     var created:String
     )
+
+/*
+*
+* URL url = new URL("http://image10.bizrate-images.com/resize?sq=60&uid=2216744464");
+Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+imageView.setImageBitmap(bmp);
+* */

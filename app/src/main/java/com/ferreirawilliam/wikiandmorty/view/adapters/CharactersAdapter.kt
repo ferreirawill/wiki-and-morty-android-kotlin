@@ -1,5 +1,6 @@
 package com.ferreirawilliam.wikiandmorty.view.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,8 @@ import kotlinx.android.synthetic.main.character_card.view.*
 
 class CharactersAdapter:RecyclerView.Adapter<CharactersViewHolder>() {
     private var mCharactersList: List<CharacterModel> = arrayListOf()
+    private var actualPosition:Int = 0
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder {
         val item = LayoutInflater.from(parent.context).inflate(R.layout.character_card,parent,false)
@@ -22,11 +25,17 @@ class CharactersAdapter:RecyclerView.Adapter<CharactersViewHolder>() {
 
     override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
         holder.bind(mCharactersList[position])
+        actualPosition = position
+        Log.d("RecyclerViewDebug", "onBindViewHolder -> Position: $position")
     }
 
     fun updateList(list: List<CharacterModel>){
         mCharactersList = list
         notifyDataSetChanged()
+    }
+
+    fun getItemPosition():Int {
+        return actualPosition
     }
 
 }

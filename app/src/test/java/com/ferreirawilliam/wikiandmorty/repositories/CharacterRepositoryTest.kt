@@ -24,7 +24,7 @@ class CharacterRepositoryTest{
 
     @Before
     fun setUpTests(){
-        val allCharactersResponse = MockResponseReader.readFile(MockResponseReader.Response.ALL_CHARACTERS)
+        val allCharactersResponse = MockResponseReader.readFile(MockResponseReader.Response.CHARACTERS_PAGE_1)
         val multipleCharactersResponse = MockResponseReader.readFile(MockResponseReader.Response.MULTIPLE_CHARACTERS)
         val singleCharactersResponse = MockResponseReader.readFile(MockResponseReader.Response.SINGLE_CHARACTERS)
         server.start()
@@ -73,6 +73,14 @@ class CharacterRepositoryTest{
 
         assert(request?.path.equals("/character/"))
         assert(request?.method == "GET")
+    }
+
+
+    @Test
+    fun testParser(){
+        var getCharactersModel = MockResponseReader.parseToCharacters(MockResponseReader.Response.CHARACTERS_PAGE_1)
+
+        assert(getCharactersModel.infoModel != null)
     }
 
     @Test

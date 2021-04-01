@@ -13,7 +13,7 @@ class CharactersViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
     fun bind(character:CharacterModel){
         val characterName = itemView.findViewById<TextView>(R.id.text_character_name)
 
-        characterName.text = character.name
+        characterName.text = "${character.id}: ${character.name}"
 
     }
 
