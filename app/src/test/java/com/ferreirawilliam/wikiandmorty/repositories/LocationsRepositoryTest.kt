@@ -1,7 +1,6 @@
 package com.ferreirawilliam.wikiandmorty.repositories
 
-import com.ferreirawilliam.wikiandmorty.model.GetCharacters
-import com.ferreirawilliam.wikiandmorty.services.listeners.CharacterListener
+import com.ferreirawilliam.wikiandmorty.MockResponseReader
 import com.ferreirawilliam.wikiandmorty.services.repository.remote.mock.CharacterRepositoryMock
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -15,7 +14,7 @@ import java.util.concurrent.TimeUnit
 class LocationsRepositoryTest {
     private lateinit var mLocationRepository: CharacterRepositoryMock
     private val server = MockWebServer()
-
+/*
     @Before
     fun setUpTests(){
         val allLocationsResponse = MockResponseReader.readFile(MockResponseReader.Response.ALL_LOCATIONS)
@@ -89,6 +88,6 @@ class LocationsRepositoryTest {
         server.shutdown();
     }
 
-
+*/
 
 }

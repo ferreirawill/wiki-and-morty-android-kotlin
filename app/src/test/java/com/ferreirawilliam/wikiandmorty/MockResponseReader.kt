@@ -1,5 +1,6 @@
-package com.ferreirawilliam.wikiandmorty.repositories
+package com.ferreirawilliam.wikiandmorty
 
+import com.ferreirawilliam.wikiandmorty.model.CharacterModel
 import com.ferreirawilliam.wikiandmorty.model.GetCharacters
 import com.ferreirawilliam.wikiandmorty.model.GetEpisodes
 import com.ferreirawilliam.wikiandmorty.model.GetLocations
@@ -16,11 +17,23 @@ class MockResponseReader private constructor(){
             return content?.readText() ?: throw FileNotFoundException("File path was not found")
         }
 
-        fun parseToCharacters(path: String):GetCharacters{
+        fun mockGetAllCharacters(path: String):GetCharacters{
             val response = readFile(path)
             val gson = Gson()
             return gson.fromJson(response,GetCharacters::class.java)
         }
+
+        fun mockGetMultipleCharacter(path: String):List<CharacterModel>{
+            val response = readFile(path)
+            val gson = Gson()
+            return  gson.fromJson(response,Array<CharacterModel>::class.java).asList()
+        }
+        fun mockGetSingleCharacter(path: String):CharacterModel{
+            val response = readFile(path)
+            val gson = Gson()
+            return gson.fromJson(response,CharacterModel::class.java)
+        }
+
 
         fun parseToEpisodes(path: String):GetEpisodes{
             val response = readFile(path)

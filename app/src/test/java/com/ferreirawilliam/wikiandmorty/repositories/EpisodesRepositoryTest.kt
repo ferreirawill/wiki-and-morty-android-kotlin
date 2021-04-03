@@ -1,6 +1,7 @@
 package com.ferreirawilliam.wikiandmorty.repositories
 
 
+import com.ferreirawilliam.wikiandmorty.MockResponseReader
 import com.ferreirawilliam.wikiandmorty.services.repository.remote.mock.CharacterRepositoryMock
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -15,7 +16,7 @@ import java.util.concurrent.TimeUnit
 class EpisodesRepositoryTest {
     private lateinit var mEpisodeRepository: CharacterRepositoryMock
     private val server = MockWebServer()
-
+/*
     @Before
     fun setUpTests(){
         val allEpisodesResponse = MockResponseReader.readFile(MockResponseReader.Response.ALL_EPISODES)
@@ -60,17 +61,6 @@ class EpisodesRepositoryTest {
     }
 
     @Test
-    fun testGetMultipleCharacters(){
-
-
-
-        var request = server.takeRequest(5, TimeUnit.SECONDS)
-
-        assert(request?.path != null)
-        assert(request?.method == "GET")
-    }
-
-    @Test
     fun testGetSingleCharacters(){
 
 
@@ -89,6 +79,6 @@ class EpisodesRepositoryTest {
     fun closeAll(){
         server.shutdown();
     }
-
+*/
 
 }

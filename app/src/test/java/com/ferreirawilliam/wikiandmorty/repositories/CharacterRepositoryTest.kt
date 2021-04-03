@@ -2,9 +2,11 @@ package com.ferreirawilliam.wikiandmorty.repositories
 
 
 
+import com.ferreirawilliam.wikiandmorty.MockResponseReader
 import com.ferreirawilliam.wikiandmorty.model.GetCharacters
 import com.ferreirawilliam.wikiandmorty.services.listeners.CharacterListener
 import com.ferreirawilliam.wikiandmorty.services.repository.remote.mock.CharacterRepositoryMock
+import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -53,10 +55,21 @@ class CharacterRepositoryTest{
         server.dispatcher = dispatcher
     }
 
+
+
+
     @Test
-    fun testGetAllCharacters(){
+    fun testCharacterService() {
+
+        //Declaring
+        var requestAll: RecordedRequest? = null
+        var requestMultiple: RecordedRequest? = null
+        var requestSingle: RecordedRequest? = null
+
+        val characterList = arrayListOf(1,2,3)
 
 
+        // Requests
         mCharacterRepository.getAllCharacters(object :CharacterListener{
             override fun onSuccess(model: GetCharacters) {
                 assert(model.infoModel != null)
@@ -68,25 +81,8 @@ class CharacterRepositoryTest{
 
         })
 
-        var request = server.takeRequest(5,TimeUnit.SECONDS)
+        requestAll = server.takeRequest(5,TimeUnit.SECONDS)
 
-
-        assert(request?.path.equals("/character/"))
-        assert(request?.method == "GET")
-    }
-
-
-    @Test
-    fun testParser(){
-        var getCharactersModel = MockResponseReader.parseToCharacters(MockResponseReader.Response.CHARACTERS_PAGE_1)
-
-        assert(getCharactersModel.infoModel != null)
-    }
-
-    @Test
-    fun testGetMultipleCharacters(){
-
-        val characterList = arrayListOf(1,2,3)
         mCharacterRepository.getMultipleCharacters(characterList,object :CharacterListener{
             override fun onSuccess(model: GetCharacters) {
                 assert(model.results.isNotEmpty())
@@ -98,18 +94,9 @@ class CharacterRepositoryTest{
 
         })
 
-        var request = server.takeRequest(5,TimeUnit.SECONDS)
+        requestMultiple = server.takeRequest(5,TimeUnit.SECONDS)
 
-        assert(request?.path != null)
-        assert(request?.method == "GET")
-    }
-
-    @Test
-    fun testGetSingleCharacters(){
-
-
-        val characterId = 1
-        mCharacterRepository.getSingleCharacters(characterId,object :CharacterListener{
+        mCharacterRepository.getSingleCharacters(characterList[0],object :CharacterListener{
             override fun onSuccess(model: GetCharacters) {
                 assert(model.results.isNotEmpty())
             }
@@ -120,13 +107,22 @@ class CharacterRepositoryTest{
 
         })
 
-        var request = server.takeRequest(5,TimeUnit.SECONDS)
+        requestSingle = server.takeRequest(5,TimeUnit.SECONDS)
 
 
-        assert(request?.path.equals("/character/$characterId"))
-        assert(request?.method == "GET")
+        //Assert
+        assert(requestAll?.path.equals("/character/?page="))
+        assert(requestAll?.method == "GET")
 
+        assert(requestMultiple?.path != null)
+        assert(requestMultiple?.method == "GET")
+
+        assert(requestSingle?.path.equals("/character/${characterList[0]}"))
+        assert(requestSingle?.method == "GET")
     }
+
+
+
 
     @After
     fun closeAll(){
