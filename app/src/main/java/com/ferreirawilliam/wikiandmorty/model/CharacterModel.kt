@@ -1,5 +1,6 @@
 package com.ferreirawilliam.wikiandmorty.model
 
+import android.graphics.Bitmap
 import com.google.gson.annotations.SerializedName
 
 data class CharacterModel(
@@ -20,7 +21,7 @@ data class CharacterModel(
     @SerializedName("location")
     var location:Map<String,String>,
     @SerializedName("image")
-    var image:String,
+    var imageUrl:String,
     @SerializedName("episode")
     var episode:List<String>,
     @SerializedName("url")
@@ -28,10 +29,3 @@ data class CharacterModel(
     @SerializedName("created")
     var created:String
     )
-
-/*
-*
-* URL url = new URL("http://image10.bizrate-images.com/resize?sq=60&uid=2216744464");
-Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-imageView.setImageBitmap(bmp);
-* */

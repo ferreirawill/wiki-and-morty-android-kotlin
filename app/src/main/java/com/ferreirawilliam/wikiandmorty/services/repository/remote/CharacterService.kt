@@ -14,6 +14,5 @@ interface CharacterService {
     fun getMultipleCharacters(@Path("characterList") characterList: List<Int>):Call<List<CharacterModel>>
     @GET("character/{id}")
     fun getSingleCharacters(@Path("id") id: Int):Call<CharacterModel>
-    @GET("character/avatar/{id}.jpeg")
-    fun getCharacterAvatar(@Path("id") id: Int):Call<CharacterModel>
+
 }

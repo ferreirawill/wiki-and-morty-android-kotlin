@@ -15,7 +15,6 @@ import com.ferreirawilliam.wikiandmorty.view.adapters.CharactersAdapter
 import com.ferreirawilliam.wikiandmorty.viewmodel.CharactersViewModel
 
 class CharactersFragment : Fragment() {
-    private val TAG = "CharactersFragment"
     private lateinit var charactersViewModel: CharactersViewModel
     private val mAdapter = CharactersAdapter()
 
@@ -40,14 +39,17 @@ class CharactersFragment : Fragment() {
 
         recyclerView.onScrollStateChanged(RecyclerView.SCROLL_STATE_SETTLING)
 
+
         recyclerView.addOnScrollListener(object :RecyclerView.OnScrollListener(){
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
+
                 if (newState == RecyclerView.SCROLL_STATE_SETTLING || newState ==RecyclerView.SCROLL_STATE_DRAGGING){
                     if(mAdapter.getItemPosition() == (mAdapter.itemCount -1)){
                         charactersViewModel.loadNewPage()
                     }
                 }
+
             }
         })
 

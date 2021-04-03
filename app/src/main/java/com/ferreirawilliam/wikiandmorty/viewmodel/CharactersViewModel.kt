@@ -39,13 +39,11 @@ class CharactersViewModel : ViewModel() {
     fun loadSingleCharacter(id: Int){
         mCharacterRepository.getSingle(id,object :CharacterListener{
             override fun onSuccess(model: GetCharacters) {
-                Log.d("API REQUEST", "onSuccess info: ${model.infoModel}")
-                Log.d("API REQUEST", "onSuccess result: ${model.results[0]}")
+
             }
 
             override fun onFailure(string: String) {
-                Log.d("API REQUEST", "onSuccess info: $string")
-                Log.d("API REQUEST", "onSuccess result: $string")
+
             }
 
         })

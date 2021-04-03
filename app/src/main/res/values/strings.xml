@@ -11,4 +11,5 @@
     <string name="menu_locations">Localizações</string>
     <string name="menu_episodes">Episódios</string>
     <string name="menu_favorites">Favoritos</string>
+    <string name="character_avatar">Character Avatar</string>
 </resources>
