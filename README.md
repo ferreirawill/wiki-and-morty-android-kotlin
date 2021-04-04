@@ -12,4 +12,4 @@ The main objective of this project is to be a portifolio project where I use too
 * Database Integration using Room
 * MVVM
 * TDD
-* Automated unit tests Using GitLab CI
+* Automated unit tests using GitLab CI
