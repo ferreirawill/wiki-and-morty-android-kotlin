@@ -1,6 +1,6 @@
 # WIKI AND MORTY PROJECT
 
-[Read in portuguese :brazil:](https://gitlab.com/Ferreira.will/wiki-and-morty)
+[Read in portuguese🇧🇷](https://gitlab.com/Ferreira.will/wiki-and-morty)
 
 ## Introduction
 
