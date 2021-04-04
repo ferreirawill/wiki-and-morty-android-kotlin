@@ -29,3 +29,12 @@ data class CharacterModel(
     @SerializedName("created")
     var created:String
     )
+{
+    object CONSTANTS {
+        const val ALIVE = "Alive"
+        const val DEAD = "Dead"
+        const val UNKNOW = "unknown"
+        const val NAME = "name"
+        const val URL ="url"
+    }
+}

@@ -8,8 +8,8 @@ This is a simple Android app that uses a [free Rick and Morty api](https://ricka
 
 The main objective of this project is to be a portifolio project where I use tools like:
 * Android development using Kotlin
-* Retrofit
-* Room
+* API Integration using Retrofit and OkHttp
+* Database Integration using Room
 * MVVM
 * TDD
 * Automated unit tests Using GitLab CI

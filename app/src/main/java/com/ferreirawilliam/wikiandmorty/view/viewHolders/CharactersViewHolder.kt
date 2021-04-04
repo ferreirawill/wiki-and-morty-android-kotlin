@@ -2,22 +2,21 @@ package com.ferreirawilliam.wikiandmorty.view.viewHolders
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.ferreirawilliam.wikiandmorty.R
 import com.ferreirawilliam.wikiandmorty.model.CharacterModel
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.character_card.view.*
 
 class CharactersViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
 
     fun bind(character:CharacterModel){
-        setName("${character.id}: ${character.name}")
+        setName("${character.name}")
         setAvatar(character.imageUrl)
-        setStatusAndType("${character.status} - ${character.species} ")
-        setLastLocation("${character.location["name"]}")
-        setOrigin("${character.origin["name"]}")
+        setStatusAndSpecie(status = character.status,specie = character.species)
+        setLastLocation("${character.location[CharacterModel.CONSTANTS.NAME]}")
+        setOrigin("${character.origin[CharacterModel.CONSTANTS.NAME]}")
 
     }
 
@@ -30,9 +29,17 @@ class CharactersViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val imageCharacterAvatar = itemView.findViewById<ImageView>(R.id.image_character_avatar)
         Picasso.get().load(imageUrl).into(imageCharacterAvatar)
     }
-    private fun setStatusAndType(status:String){
+    private fun setStatusAndSpecie(status:String,specie:String){
+        val statusCircle = itemView.findViewById<LinearLayout>(R.id.status_circle)
         val textCharacterType = itemView.findViewById<TextView>(R.id.text_character_status)
-        textCharacterType.text = status
+
+        when(status){
+            CharacterModel.CONSTANTS.ALIVE -> statusCircle.setBackgroundResource(R.drawable.status_circle_alive)
+            CharacterModel.CONSTANTS.DEAD -> statusCircle.setBackgroundResource(R.drawable.status_circle_dead)
+            CharacterModel.CONSTANTS.UNKNOW -> statusCircle.setBackgroundResource(R.drawable.status_circle_unknow)
+        }
+
+        textCharacterType.text = " $status - $specie "
     }
     private fun setLastLocation(lastLocation:String){
         val textCharacterLocation = itemView.findViewById<TextView>(R.id.text_character_location)
