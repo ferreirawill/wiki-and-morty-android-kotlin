@@ -6,17 +6,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ferreirawilliam.wikiandmorty.R
 import com.ferreirawilliam.wikiandmorty.model.CharacterModel
+
+import com.ferreirawilliam.wikiandmorty.view.listeners.OnMoreListener
 import com.ferreirawilliam.wikiandmorty.view.viewHolders.CharactersViewHolder
 
 
-class CharactersAdapter:RecyclerView.Adapter<CharactersViewHolder>() {
+class CharactersAdapter(onMoreListener: OnMoreListener):RecyclerView.Adapter<CharactersViewHolder>(){
     private var mCharactersList: List<CharacterModel> = arrayListOf()
     private var actualPosition:Int = 0
+    private var buttonListener = onMoreListener
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder {
         val item = LayoutInflater.from(parent.context).inflate(R.layout.character_card,parent,false)
-        return CharactersViewHolder(item)
+        return CharactersViewHolder(item,onMoreListener = buttonListener)
     }
 
     override fun getItemCount(): Int {
@@ -25,6 +28,7 @@ class CharactersAdapter:RecyclerView.Adapter<CharactersViewHolder>() {
 
     override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
         holder.bind(mCharactersList[position])
+
         actualPosition = position
     }
 
@@ -36,5 +40,8 @@ class CharactersAdapter:RecyclerView.Adapter<CharactersViewHolder>() {
     fun getItemPosition():Int {
         return actualPosition
     }
+
+
+
 
 }

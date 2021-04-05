@@ -64,4 +64,8 @@ class CharactersViewModel : ViewModel() {
         })
     }
 
+    fun getCharacterFromIndex(index:Int):CharacterModel{
+         return characterList.value?.get(index) ?: CharacterModel.VOID_CHARACTER
+    }
+
 }

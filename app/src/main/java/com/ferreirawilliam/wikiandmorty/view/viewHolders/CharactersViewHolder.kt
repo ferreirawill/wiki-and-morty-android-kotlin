@@ -1,15 +1,22 @@
 package com.ferreirawilliam.wikiandmorty.view.viewHolders
 
 import android.view.View
+import android.widget.Button
+
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+
 import androidx.recyclerview.widget.RecyclerView
 import com.ferreirawilliam.wikiandmorty.R
 import com.ferreirawilliam.wikiandmorty.model.CharacterModel
+import com.ferreirawilliam.wikiandmorty.view.listeners.OnMoreListener
+
 import com.squareup.picasso.Picasso
 
-class CharactersViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
+class CharactersViewHolder(itemView: View,onMoreListener: OnMoreListener):RecyclerView.ViewHolder(itemView) {
+    private val buttonListener = onMoreListener
+
 
     fun bind(character:CharacterModel){
         setName("${character.name}")
@@ -17,7 +24,15 @@ class CharactersViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         setStatusAndSpecie(status = character.status,specie = character.species)
         setLastLocation("${character.location[CharacterModel.CONSTANTS.NAME]}")
         setOrigin("${character.origin[CharacterModel.CONSTANTS.NAME]}")
+        setButtonListener()
+    }
 
+
+    private fun setButtonListener(){
+        val buttonMore = itemView.findViewById<Button>(R.id.button_more)
+        buttonMore.setOnClickListener {
+            buttonListener.onMoreClick(adapterPosition)
+        }
     }
 
     private fun setName(characterName:String){
@@ -49,4 +64,8 @@ class CharactersViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val textCharacterOrigin = itemView.findViewById<TextView>(R.id.text_character_origin)
         textCharacterOrigin.text = origin
     }
+
+
+
+
 }
