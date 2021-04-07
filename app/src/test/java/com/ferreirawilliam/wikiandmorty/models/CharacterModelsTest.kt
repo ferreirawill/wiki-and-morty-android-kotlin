@@ -50,6 +50,7 @@ class CharacterModelsTest {
 
 
     }
+
     @Test
     fun singleCharacterResponse(){
         singleCharacter = MockResponseReader.mockGetSingleCharacter(MockResponseReader.Response.SINGLE_CHARACTERS)

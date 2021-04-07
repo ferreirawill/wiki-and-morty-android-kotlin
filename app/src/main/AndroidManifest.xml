@@ -10,8 +10,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WikiAndMorty">
-        <activity android:name=".view.activities.DetailsActivity" />
+        android:theme="@style/Theme.WikiAndMorty"
+        android:name="androidx.multidex.MultiDexApplication">
+        <activity
+            android:name=".view.activities.DetailsActivity"
+            android:parentActivityName=".view.activities.MainActivity"
+            android:theme="@style/Theme.WikiAndMorty.NoActionBar" />
         <activity
             android:name=".view.activities.MainActivity"
             android:label="@string/app_name"

@@ -23,10 +23,12 @@ class EpisodesFragment : Fragment() {
         episodesViewModel =
                 ViewModelProvider(this).get(EpisodesViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_episodes, container, false)
-        val textView: TextView = root.findViewById(R.id.text_slideshow)
-        episodesViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+
+        episodesViewModel.loadAllEpisodes()
+
+
+
+
         return root
     }
 }
