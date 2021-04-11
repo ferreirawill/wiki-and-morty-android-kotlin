@@ -44,12 +44,13 @@ class CharacterModelsTest {
             assert(it.location.containsKey("name"))
             assert(it.location.containsKey("url"))
             assert(it.episode.isNotEmpty())
-            assert(it.image.isNotEmpty())
+            assert(it.imageUrl.isNotEmpty())
             assert(it.url.isNotEmpty())
         }
 
 
     }
+
     @Test
     fun singleCharacterResponse(){
         singleCharacter = MockResponseReader.mockGetSingleCharacter(MockResponseReader.Response.SINGLE_CHARACTERS)
@@ -65,7 +66,7 @@ class CharacterModelsTest {
         assert(singleCharacter.location.containsKey("name"))
         assert(singleCharacter.location.containsKey("url"))
         assert(singleCharacter.episode.isNotEmpty())
-        assert(singleCharacter.image.isNotEmpty())
+        assert(singleCharacter.imageUrl.isNotEmpty())
         assert(singleCharacter.url.isNotEmpty())
     }
 }

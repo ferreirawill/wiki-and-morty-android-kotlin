@@ -1,6 +1,8 @@
 package com.ferreirawilliam.wikiandmorty.model
 
+import android.graphics.Bitmap
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class CharacterModel(
     @SerializedName("id")
@@ -20,18 +22,29 @@ data class CharacterModel(
     @SerializedName("location")
     var location:Map<String,String>,
     @SerializedName("image")
-    var image:String,
+    var imageUrl:String,
     @SerializedName("episode")
     var episode:List<String>,
     @SerializedName("url")
     var url:String,
     @SerializedName("created")
     var created:String
-    )
+    ):Serializable {
 
-/*
-*
-* URL url = new URL("http://image10.bizrate-images.com/resize?sq=60&uid=2216744464");
-Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-imageView.setImageBitmap(bmp);
-* */
+    companion object{
+        const val SERIALIZED_OBJECT = "serializedObject"
+        val VOID_CHARACTER = CharacterModel(
+            0,
+            "",
+            "","","","", mapOf(), mapOf(),"", arrayListOf(),"","")
+    }
+
+    object CONSTANTS {
+        const val ALIVE = "Alive"
+        const val DEAD = "Dead"
+        const val UNKNOW = "unknown"
+        const val NAME = "name"
+        const val URL ="url"
+
+    }
+}

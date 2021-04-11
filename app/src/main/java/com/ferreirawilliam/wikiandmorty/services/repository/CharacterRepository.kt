@@ -1,14 +1,19 @@
 package com.ferreirawilliam.wikiandmorty.services.repository
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import com.ferreirawilliam.wikiandmorty.model.CharacterModel
 import com.ferreirawilliam.wikiandmorty.model.GetCharacters
 import com.ferreirawilliam.wikiandmorty.services.listeners.CharacterListener
 import com.ferreirawilliam.wikiandmorty.services.repository.remote.CharacterService
 import com.ferreirawilliam.wikiandmorty.services.repository.remote.RetrofitClient
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.URL
+
 
 class CharacterRepository {
     private val retrofitClient = RetrofitClient.createService(CharacterService::class.java)
@@ -46,6 +51,7 @@ class CharacterRepository {
 
             override fun onResponse(call: Call<List<CharacterModel>>, response: Response<List<CharacterModel>>) {
                 Log.d("API REQUEST", "SUCESSO NA API")
+
                 response.body()?.let { listener.onSuccess(GetCharacters(infoModel = null,results = it)) }
             }
 
@@ -93,10 +99,6 @@ class CharacterRepository {
             }
 
         })
-    }
-
-    fun getAvatar(id:Int){
-
     }
 
 }

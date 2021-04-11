@@ -1,7 +1,6 @@
 package com.ferreirawilliam.wikiandmorty.view.activities
 
 import android.os.Bundle
-import android.util.Log
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,9 +11,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.ferreirawilliam.wikiandmorty.R
-import com.ferreirawilliam.wikiandmorty.model.GetCharacters
-import com.ferreirawilliam.wikiandmorty.services.listeners.CharacterListener
-import com.ferreirawilliam.wikiandmorty.services.repository.CharacterRepository
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,9 +40,6 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onResume() {
-        super.onResume()
 
-    }
 
 }

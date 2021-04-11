@@ -39,21 +39,20 @@ class CharactersViewModel : ViewModel() {
     fun loadSingleCharacter(id: Int){
         mCharacterRepository.getSingle(id,object :CharacterListener{
             override fun onSuccess(model: GetCharacters) {
-                Log.d("API REQUEST", "onSuccess info: ${model.infoModel}")
-                Log.d("API REQUEST", "onSuccess result: ${model.results[0]}")
+
             }
 
             override fun onFailure(string: String) {
-                Log.d("API REQUEST", "onSuccess info: $string")
-                Log.d("API REQUEST", "onSuccess result: $string")
+
             }
 
         })
     }
 
-    fun loadNewPage(){
-
-        mCharacterRepository.getNewPage(_responseInfo.nextPage,object : CharacterListener{
+    fun loadNewPage():Boolean {
+        if (_responseInfo.nextPage == null) return false
+        _responseInfo.nextPage?.let {
+            mCharacterRepository.getNewPage(it,object : CharacterListener{
             override fun onSuccess(model: GetCharacters) {
                 _responseInfo = model.infoModel!!
 
@@ -64,6 +63,12 @@ class CharactersViewModel : ViewModel() {
                 Log.d("API REQUEST", "onFailure: $string")
             }
         })
+        }
+        return true
+    }
+
+    fun getCharacterFromIndex(index:Int):CharacterModel{
+         return characterList.value?.get(index) ?: CharacterModel.VOID_CHARACTER
     }
 
 }

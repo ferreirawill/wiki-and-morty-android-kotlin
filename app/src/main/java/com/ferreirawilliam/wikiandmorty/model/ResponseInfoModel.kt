@@ -8,7 +8,7 @@ data class ResponseInfoModel(
     @SerializedName("pages")
     var pages:Int,
     @SerializedName("next")
-    var nextPage:String,
+    var nextPage:String?,
     @SerializedName("prev")
     var previousPage:String?
 )
