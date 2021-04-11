@@ -108,4 +108,8 @@
     </string>
     <string name="type">Type:</string>
     <string name="dimension">Dimension:</string>
+    <string name="number_of_residents">Number of residents:</string>
+    <string name="episode">Episode:</string>
+    <string name="air_date">Air date:</string>
+    <string name="number_of_characters">Number of characters:</string>
 </resources>

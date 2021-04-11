@@ -49,9 +49,10 @@ class CharactersViewModel : ViewModel() {
         })
     }
 
-    fun loadNewPage(){
-
-        mCharacterRepository.getNewPage(_responseInfo.nextPage,object : CharacterListener{
+    fun loadNewPage():Boolean {
+        if (_responseInfo.nextPage == null) return false
+        _responseInfo.nextPage?.let {
+            mCharacterRepository.getNewPage(it,object : CharacterListener{
             override fun onSuccess(model: GetCharacters) {
                 _responseInfo = model.infoModel!!
 
@@ -62,6 +63,8 @@ class CharactersViewModel : ViewModel() {
                 Log.d("API REQUEST", "onFailure: $string")
             }
         })
+        }
+        return true
     }
 
     fun getCharacterFromIndex(index:Int):CharacterModel{

@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -40,7 +39,7 @@ class CharactersFragment : Fragment(),OnMoreListener {
         val root = inflater.inflate(R.layout.fragment_characters, container, false)
 
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_all_characters)
-        mCircularProgressIndicator = root.findViewById(R.id.progress_circular)
+        mCircularProgressIndicator = root.findViewById(R.id.progress_circular_characters)
         mCircularProgressIndicator.visibility = View.INVISIBLE
 
 
@@ -60,7 +59,7 @@ class CharactersFragment : Fragment(),OnMoreListener {
         charactersViewModel.loadAllCharacters()
 
         recyclerView.onScrollStateChanged(RecyclerView.SCROLL_STATE_SETTLING)
-
+        recyclerView.onScrollStateChanged(RecyclerView.SCROLL_STATE_DRAGGING)
 
         recyclerView.addOnScrollListener(object :RecyclerView.OnScrollListener(){
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -70,7 +69,11 @@ class CharactersFragment : Fragment(),OnMoreListener {
                     if(mAdapter.getItemPosition() == (mAdapter.itemCount -1)){
 
                         mCircularProgressIndicator.visibility = View.VISIBLE
-                        charactersViewModel.loadNewPage()
+                        val pageIsNotNull = charactersViewModel.loadNewPage()
+                        if (pageIsNotNull)
+                            mCircularProgressIndicator.visibility = View.VISIBLE
+                        else
+                            mCircularProgressIndicator.visibility = View.INVISIBLE
                     }
                 }
 

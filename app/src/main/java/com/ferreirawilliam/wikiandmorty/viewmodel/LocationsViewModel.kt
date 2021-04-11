@@ -25,10 +25,12 @@ class LocationsViewModel : ViewModel() {
 
     private lateinit var _responseInfo: ResponseInfoModel
 
-    fun loadAll(){
+    fun loadAll() {
         mLocationsRepository.getAll(object :LocationsListener{
             override fun onSuccess(model: GetLocations) {
                 Log.d("LocationsViewModel", "onSuccess: ${model.results[0]}")
+                _responseInfo = model.infoModel!!
+                _locationList.value = model.results
             }
 
             override fun onFailure(string: String) {
@@ -36,6 +38,27 @@ class LocationsViewModel : ViewModel() {
             }
 
         })
+    }
+
+
+    fun loadNewPage():Boolean{
+        if(_responseInfo.nextPage == null) return false
+
+        _responseInfo.nextPage?.let {
+            mLocationsRepository.getNewPage(it,object : LocationsListener{
+            override fun onSuccess(model: GetLocations) {
+                _responseInfo = model.infoModel!!
+
+                _locationList.value = locationList.value?.plus(model.results) ?: locationList.value
+            }
+
+            override fun onFailure(string: String) {
+                Log.e("LOCATIONS VIEW MODEL", "onFailure: Falha em adquirir nova página" )
+            }
+
+        })
+        }
+        return true
     }
 
 }

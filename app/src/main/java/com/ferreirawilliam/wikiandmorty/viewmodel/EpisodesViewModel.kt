@@ -27,7 +27,9 @@ class EpisodesViewModel : ViewModel() {
     fun loadAllEpisodes(){
         mEpisodesRepository.getAll(object : EpisodesListener{
             override fun onSuccess(model: GetEpisodes) {
-                Log.d("EpisodesViewModel", "onSuccess: ${model.results[0]}")
+                _responseInfo = model.infoModel!!
+                _episodeList.value = model.results
+
             }
 
             override fun onFailure(string: String) {
@@ -35,5 +37,22 @@ class EpisodesViewModel : ViewModel() {
             }
 
         })
+    }
+
+
+    fun loadNewPage():Boolean{
+        if (_responseInfo.nextPage == null) return false
+        _responseInfo.nextPage?.let { mEpisodesRepository.getNewPage(it, object :EpisodesListener {
+            override fun onSuccess(model: GetEpisodes) {
+                _responseInfo = model.infoModel!!
+                _episodeList.value = episodeList.value?.plus(model.results) ?: episodeList.value
+            }
+
+            override fun onFailure(string: String) {
+                Log.d("EpisodesViewModel", "onFailure: $string")
+            }
+
+        }) }
+        return true
     }
 }

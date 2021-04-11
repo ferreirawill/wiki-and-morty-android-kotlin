@@ -14,4 +14,16 @@
      app:layout_constraintLeft_toLeftOf="parent"
      app:layout_constraintRight_toRightOf="parent"
      />
+ <ProgressBar
+     android:id="@+id/progress_circular_locations"
+     app:layout_constraintBottom_toBottomOf="parent"
+     app:layout_constraintRight_toRightOf="parent"
+     app:layout_constraintLeft_toLeftOf="parent"
+     android:layout_width="50dp"
+     android:layout_height="50dp"
+     android:indeterminateTint="#FFFF5722"
+     android:indeterminate="true" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
